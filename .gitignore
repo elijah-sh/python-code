@@ -16,7 +16,7 @@
 *.iml
 *.ipr
 /target
-*/_init_.py
+*/__init__.py
 ### NetBeans ###
 /nbproject/private/
 /build/
