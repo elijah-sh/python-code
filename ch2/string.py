@@ -44,3 +44,8 @@ print (person_name)
 print (person_name.lstrip())
 print (person_name.rstrip())
 print (person_name.strip())
+
+str = "833273.OC";
+s = str.split('.')
+s = s[1] + s[0]
+print(s)
