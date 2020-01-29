@@ -1,3 +1,5 @@
+#读取并存入数据库
+
 import xlrd
 import pymysql
 
@@ -9,7 +11,7 @@ c = 'utf8'
 port = 3306
 TABLE_NAME = 'EXCEL_ROW_DATA'
 
-WORK_BOOK_NAME = '25.xls'
+WORK_BOOK_NAME = 'D:/tmp/data/25.xls'
 SHEET_NAME = 'Sheet1'
 
 def read_input_ex():

@@ -46,9 +46,7 @@ def process_item(item):
     try:
         cue.execute("insert ignore into " +
                     TABLE_NAME +
-                   # "(big_circle,middle_circle,small_circle,brand_id,brand_name_cn,brand_name_en,source) "
                      "(report_name,total_assets,total_liab,asset_liab_ratio,total_quity_atsopc,held_to_maturity_invest,interest_receivable) "
-
                     "values (%s,%s,%s,%s,%s,%s,%s)",
                     [item['big_circle'],item['middle_circle'],item['small_circle'],item['brand_id'],item['brand_name_cn'],item['brand_name_en'],item['source']])
     except Exception as e:

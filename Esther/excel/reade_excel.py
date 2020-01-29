@@ -1,51 +1,29 @@
-# coding=utf-8
 import xlrd
-import xlwt
-import datetime
-import os
-import openpyxl
 
-class excelProcess:
-    def __init__(self,keywordExcelFile,mainExcelFile):
-        self.keywordExcelFile = keywordExcelFile
-        self.mainExcelFile = mainExcelFile
 
-    def WriteLog(self, message,date):
-        fileName = os.path.join(os.getcwd(),  date  +   '.txt')
-        with open(fileName, 'a') as f:
-            f.write(message)
+def read_input():
+    workbook = xlrd.open_workbook('25.xls')  # (1)取得excel book对象
+    s12 = workbook.sheet_by_name("Sheet1")  # (2)取得sheet对象
+    rows = s12.nrows  # (3)获得总行数
+    for r in range(0, rows):
+        row = s12.row_values(r)  # (4)获取行数据
+        print(row)
 
-    def WriteSheetRow(self,sheet, rowValueList, rowIndex, isBold):
-        i = 0
-        style = xlwt.easyxf('font: bold 1')
-        # style = xlwt.easyxf('font: bold 0, color red;')#红色字体
-        # style2 = xlwt.easyxf('pattern: pattern solid, fore_colour yellow; font: bold on;') # 设置Excel单元格的背景色为黄色，字体为粗体
-        for svalue in rowValueList:
-            if isBold:
-                sheet.write(rowIndex, i, svalue, style)
-            else:
-                sheet.write(rowIndex, i, svalue)
+
+def read_input_ex():
+    workbook = xlrd.open_workbook('25.xls')  # (1)取得excel book对象
+    sheet = workbook.sheet_by_name("Sheet1")  # (2)取得sheet对象
+    rows = sheet.nrows  # (3)获得总行数
+    title = sheet.row_values(0)
+    for r in range(1, rows):
+        edata = []
+        row = sheet.row_values(r)  # (4)获取行数据
+        i = -1
+        for t in title:
             i = i + 1
-
-    def save_Excel(self):
-        wbk = xlwt.Workbook()
-        sheet = wbk.add_sheet('sheet1', cell_overwrite_ok=True)
-        headList = ['IR_SITENAME', 'IR_AUTHORS', 'SY_INFOTYPE', 'RID', 'IR_URLTITLE','SY_KEYWORDS',
-                    'IR_URLNAME', 'IR_URLTIME',
-                    'IR_GROUPNAME', 'IR_CHANNEL',
-                    'SY_BB_COMMON', 'summary', 'keyword'
-                    ]
-
-        rowIndex = 0
-        self.WriteSheetRow(sheet, headList, rowIndex, True)
-        for i in range(1, 11):
-            rowIndex = rowIndex + 1
-            valueList = []
-            for j in range(1, 14):
-                valueList.append(j * i)
-            self.WriteSheetRow(sheet, valueList, rowIndex, False)
-        fileName = os.path.join(os.getcwd(),'test.xlsx')
-        wbk.save(fileName)
+            edata.append(t)
+            edata.append(row[i])
+        print(edata)
 
 if __name__ == '__main__':
-    save_Excel()
+    read_input_ex()
