@@ -1,6 +1,7 @@
 import xlrd
 import xlsxwriter
 import pymysql
+import csv
 
 host = '127.0.0.1'
 user = 'root'
@@ -18,6 +19,7 @@ def read_input_ex():
     sheet = workbook.sheet_by_name("许昌-列车离鄂")  # (2)取得sheet对象
     rows = sheet.nrows  # (3)获得总行数
     title = sheet.row_values(0)
+    data = []
     for r in range(1, rows):
         edata = []
         row = sheet.row_values(r)  # (4)获取行数据
@@ -27,6 +29,9 @@ def read_input_ex():
             edata.append(t)
             edata.append(row[i])
         print(edata)
+        data.append(edata)
+    return  data
+
 
 def wirter():
     workbook = xlsxwriter.Workbook('D:/tmp/data/test4.xlsx') # 建立文件
@@ -88,6 +93,15 @@ def process_item():
         con.commit()
     cue.close()  # 关闭游标
 
+def writer_csv():
+
+    data = read_input_ex();
+    print("====")
+    print(data)
+    with open('D:/tmp/data/data.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
+        spamwriter = csv.writer(csvfile)
+        for d in data:
+            spamwriter.writerow(d)
 
 if __name__ == '__main__':
-    process_item()
+    writer_csv()
