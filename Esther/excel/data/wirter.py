@@ -15,8 +15,8 @@ WORK_BOOK_NAME = 'D:/tmp/data/武汉进出人员统计-税务组.xlsx'
 SHEET_NAME = '武汉进出人员-报账'
 
 def read_input_ex():
-    workbook = xlrd.open_workbook('D:/tmp/data/141.xls')  # (1)取得excel book对象
-    sheet = workbook.sheet_by_name("许昌-列车离鄂")  # (2)取得sheet对象
+    workbook = xlrd.open_workbook('D:/tmp/data/25.xls')  # (1)取得excel book对象
+    sheet = workbook.sheet_by_name("Sheet1")  # (2)取得sheet对象
     rows = sheet.nrows  # (3)获得总行数
     title = sheet.row_values(0)
     data = []
@@ -29,7 +29,7 @@ def read_input_ex():
             edata.append(t)
             edata.append(row[i])
         print(edata)
-        data.append(edata)
+        data.append(row)
     return  data
 
 
@@ -94,7 +94,6 @@ def process_item():
     cue.close()  # 关闭游标
 
 def writer_csv():
-
     data = read_input_ex();
     print("====")
     print(data)

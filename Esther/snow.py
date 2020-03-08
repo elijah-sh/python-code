@@ -1,4 +1,5 @@
 import json
+import logging
 
 import pymysql
 import requests
@@ -14,6 +15,25 @@ port = 3306
 TABLE_NAME = 'snow'
 symbol = 'SZ002936'
 def getBrand(symbol, company_name):
+    logging.captureWarnings(True)
+
+    r = requests.get('https://www.12306.cn', verify=False)
+    print(r.status_code)
+
+    data = {"classid": 131}
+    s_url = "https://teacher.yhkdz.cn/StudentInfo/StudentList";
+
+    header1 = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Cookie": "techerClient=platform=1&SchoolID=67&SchoolName=%e8%a5%84%e5%9f%8e%e5%8e%bf%e5%ae%9e%e9%aa%8c%e9%ab%98%e4%b8%ad&SchoolFlag=xiangchengshiyan&openid=&Username=13733734302&IPAddress=tGt5URfb8ZUzHGqPOUF2kQ==&LoginName=d3g6DD8nF/w=&DatabasePass=SG4mbANR95Q=&ConnectionName=BhdA2yeowXXJBcpceT6y9NblJtVuc+VW"
+    }
+
+    response = requests.post(s_url,headers=header1, verify=False )
+
+    result = json.loads(response.text)
+    print(result)
+
     cash_flow = "https://stock.xueqiu.com/v5/stock/finance/cn/cash_flow.json?symbol="+symbol+"&type=Q4&is_detail=true&count=6&timestamp="
 
     url = "https://stock.xueqiu.com/v5/stock/finance/cn/balance.json?symbol="+symbol+"&type=Q4&is_detail=true&count=6&timestamp=1819955200001"
@@ -131,4 +151,4 @@ def process_item():
 
 if __name__ == '__main__':
     # getBrand()
-    process_item()
+    getBrand(200170,'s')

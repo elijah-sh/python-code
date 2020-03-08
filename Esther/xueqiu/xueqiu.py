@@ -1,5 +1,4 @@
 ﻿import json
-import ssl
 import http.cookiejar
 import urllib.request
 import os
@@ -8,7 +7,6 @@ import re
 
 
 #引入模块ssl取消全局验证
-ssl._create_default_https_context = ssl._create_unverified_context
 headers = [('Accept', 'application/json, text/plain, */*'),('Accept-Language', 'zh-CN,zh;q=0.9'),
 ('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36'),
 ('Origin', 'https://xueqiu.com')]           
